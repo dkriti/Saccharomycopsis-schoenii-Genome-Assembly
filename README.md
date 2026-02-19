@@ -31,14 +31,14 @@ The scripts are grouped sequentially by the specific biological pipeline they pe
 * **`Assembly_QC.sh`**: A bash script to evaluate the final purged assembly. It generates contiguity metrics using QUAST, sanitizes the FASTA headers, and runs BUSCO against the Saccharomycetes lineage to assess genome completeness.
 
 ### 2. Genome Annotation & Intron Analysis
-* **`annotation_stats.py`** / **`stats_sch_annot.py`**: Parses the structural annotation (`.gtf`) to calculate global statistics, including total gene counts, exon counts, transcript numbers, and the proportion of single-exon vs. multi-exon genes.
+* **`annotation_stats.py`**: Parses the structural annotation (`.gtf`) to calculate global statistics, including total gene counts, exon counts, transcript numbers, and the proportion of single-exon vs. multi-exon genes.
 * **`analyze_introns.py`**: Analyzes the `.gtf` and `.fa` files to extract intron statistics, validate `GT-AG` consensus splice sites, and identify introns within conserved "usual culprit" yeast gene families (e.g., *RPL*, *ACT1*, *DBP2*, *YRA1*).
 * **`analyze_introns_w_len.py`**: An expanded version of the intron analysis that outputs the raw length data (`all_intron_lengths.txt`) and automatically generates a histogram plot (`Figure_Intron_Distribution.png`) to visualize the length distribution skew.
 
 ### 3. Retrotransposon (TE) Analysis
 * **`retrotransposon_analysis.py`**: Parses the `ltrs.gff3` output to generate a multi-panel summary figure (`LTR_Analysis.png`) detailing LTR abundance per chromosome, length distributions, genomic coordinates, and sequence identity.
 * **`retrotransposon_stats.py`**: Merges structural data (`ltrs.gff3`) with lineage classification data (`candidates.fasta.gydb.cls.tsv`) to perform deep profiling. It identifies giant elements (>10 kb), checks for centromere-targeting chromoviruses, analyzes mixed domains, and exports a clean summary to `FINAL_TE_DATASET.csv`.
-* **`TE_analysis.py`**: A specialized script to analyze TE protein domains. It verifies the structural order of Integrase (INT) and Reverse Transcriptase (RT) to confidently separate Ty1/Copia-like (`INT...RT`) from Ty3/Gypsy-like (`RT...INT`) superfamilies.
+* **`TE_analysis.py`**: A specialized script to analyze TE protein domains. It verifies the structural order of Integrase (INT) and Reverse Transcriptase (RT) to confidently separate *Ty1/Copia*-like (`INT...RT`) from *Ty3/Gypsy*-like (`RT...INT`) superfamilies.
 
 ### 4. Specific Genomic Features (Centromeres & MAT Locus)
 * **`find_centromeres.py`**: Uses regular expressions to scan the genome assembly (`.fa`) for specific centromere DNA binding motifs (`[AG]TCAC[AG]TG...TGT[AT][TG]G[TG]T`) and calculates their global genomic coordinates.
