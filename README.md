@@ -3,7 +3,7 @@
 This repository contains the custom bash and Python scripts used for the *de novo* genome assembly, annotation, structural analysis, and genomic feature characterization of *Saccharomycopsis schoenii*. 
 
 These scripts accompany the manuscript published in *G3: Genes|Genomes|Genetics*:
-> **Divya Kriti**, et al. (2026). "Chromosome-Scale Genome Assembly and Characterization of Saccharomycopsis schoenii, a Necrotrophic Predatory Yeast". *G3: Genes|Genomes|Genetics*. 
+> **Divya Kriti**, et al. (2026). "Chromosome-Scale Genome Assembly and Characterization of *Saccharomycopsis schoenii*, a Necrotrophic Predatory Yeast". *G3: Genes|Genomes|Genetics*. 
 
 ## Dependencies
 The workflows in this repository utilize a combination of standard bioinformatics tools and Python 3. 
