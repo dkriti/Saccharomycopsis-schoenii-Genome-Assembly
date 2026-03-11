@@ -68,6 +68,6 @@ def gtf_stats(gtf_path):
     print(f"Unannotated genes: {len(unannotated_genes)} ({len(unannotated_genes)/float(len(genes))*100:.1f}%)")
 
 if __name__ == "__main__":
-    gtf_path = "schoenii_annotation.gtf"  # braker_prot.gtf, braker_rnaseq.gtf, schoenii_annotation.gtf)
+    gtf_path = "schoenii_annotation.gtf"  # use either prot.gtf, rnaseq.gtf, or schoenii_annotation.gtf)
     gtf_stats(gtf_path)
 
