@@ -17,11 +17,9 @@ def analyze_retrotransposons():
                     similarity = float(parts[9])
                     seq_nr = int(parts[10])
                     
-                    # Map seq_nr to chromosome
                     chr_map = {0: 'ChrI', 1: 'ChrII', 2: 'ChrIII', 3: 'ChrIV', 4: 'ChrV', 5: 'ChrVI'}
                     chrom = chr_map.get(seq_nr, f"Chr{seq_nr+1}")
                     
-                    # Create Chr:Start-End
                     key = f"{chrom}:{start}-{end}"
                     
                     ltr_data.append({
@@ -42,7 +40,6 @@ def analyze_retrotransposons():
 
     try:
         df_cls = pd.read_csv("candidates.fasta.gydb.cls.tsv", sep="\t")
-        # Extract the coordinate Key from #TE column (e.g., LTR_14::ChrI:584115-589719 -> ChrI:584115-589719)
         df_cls['Key'] = df_cls['#TE'].apply(lambda x: x.split("::")[1] if "::" in x else x)
         print(f" -> Found classification for {len(df_cls)} elements.")
     except FileNotFoundError:
@@ -73,14 +70,13 @@ def analyze_retrotransposons():
         for _, row in giants.iterrows():
             print(f"  * {row['Key']} | Length: {row['Length_bp']} bp | Superfamily: {row['Superfamily']} | Clade: {row['Clade']}")
             if row['Superfamily'] == 'Unclassified':
-                print("    -> Note: Lack of domains + large size strongly supports 'Nested Insertion' hypothesis (coding region disrupted).")
+                print("Note: Lack of domains + large size strongly supports 'Nested Insertion' hypothesis (coding region disrupted).")
             else:
-                print("    -> Note: Has domains but size is double canonical -> Nested Insertion likely retaining some host domains.")
+                print("Note: Has domains but size is double canonical -> Nested Insertion likely retaining some host domains.")
     else:
         print("No elements > 10kb found.")
 
     # Centromere analysis
-    print("\n Centromere/Chromovirus check")
     cen_region = df_merged[
         (df_merged['Chromosome'] == 'ChrVI') & 
         (df_merged['Start'] > 650000) & 
@@ -105,7 +101,6 @@ def analyze_retrotransposons():
         print(mixed[['Key', 'Superfamily', 'Domains']].head(3).to_string(index=False))
 
     df_merged.to_csv("FINAL_TE_DATASET.csv", index=False)
-    print(" -> Saved merged dataset to 'FINAL_TE_DATASET.csv'. Use this for your tables.")
 
 if __name__ == "__main__":
     analyze_retrotransposons()
