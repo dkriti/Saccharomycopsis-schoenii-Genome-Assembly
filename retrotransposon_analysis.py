@@ -90,7 +90,6 @@ if not df.empty:
     ax3.legend()
 
     ax5 = fig.add_subplot(gs[2, 0])
-    # Plot both left and right LTR lengths to check for symmetry
     ltr_lengths = pd.DataFrame({
         'Length': pd.concat([df['L_LTR_Len'], df['R_LTR_Len']]),
         'Type': ['Left LTR'] * len(df) + ['Right LTR'] * len(df)
