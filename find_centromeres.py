@@ -28,13 +28,13 @@ def find_centromeres_with_global_coords():
     pattern = re.compile(r"([AG]TCAC[AG]TG)([ATCGN]{70,120})(TGT[AT][TG]G[TG]T)")
 
     for record in genome_records:
-        # Skip mitochondria if present
+        # Skip mitochondria
         if "Mito" in record.id or "ChrM" in record.id or "mt" in record.id.lower():
             continue
 
         offset = chrom_offsets[record.id]
 
-        # Search Forward Strand
+        # Forward Strand
         for match in pattern.finditer(str(record.seq)):
             local_start = match.start() + 1
             local_end = match.end()
@@ -44,7 +44,7 @@ def find_centromeres_with_global_coords():
             
             print(f"{record.id:<10} | {local_start:<12} | {local_end:<12} | {global_start:<15,} | {global_end:<15,}")
 
-        # Search Reverse Strand
+        # Reverse Strand
         rev_seq = record.seq.reverse_complement()
         for match in pattern.finditer(str(rev_seq)):
             local_start = len(record) - match.end() + 1
