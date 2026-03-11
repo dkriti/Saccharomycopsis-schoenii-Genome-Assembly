@@ -6,9 +6,9 @@ import os
 GTF_FILE = "schoenii_annotation.gtf" 
 FASTA_FILE = "Schoenii_assembly.fa"
 OUTPUT_DATA_FILE = "all_intron_lengths.txt"
-OUTPUT_PLOT_FILE = "Figure_Intron_Distribution.png"
+OUTPUT_PLOT_FILE = "Intron_Distribution.png"
 
-# Updated list including regulatory genes and cytoskeleton factors
+# List of regulatory genes and cytoskeleton factors
 CULPRIT_KEYWORDS = [
     "RPL", "RPS",       # Ribosomal Proteins
     "ACT1", "COF1",     # Cytoskeleton
@@ -19,7 +19,7 @@ CULPRIT_KEYWORDS = [
     "DBP2",             # RNA Helicase (NMD regulation)
     "GLC7"              # Phosphatase
 ]
-# =================================================
+
 
 def parse_fasta(fasta_path):
     """Reads genome fasta into a dict for consensus checking"""
@@ -90,7 +90,7 @@ def analyze_gtf():
         print(f"ERROR: GTF file '{GTF_FILE}' not found.")
         return
 
-    # --- ANALYZE ---
+
     intron_lengths = []
     splice_sites = defaultdict(int)
     culprits_found = []
@@ -118,7 +118,7 @@ def analyze_gtf():
             intron_lengths.append(length)
             local_introns.append(length)
 
-            # Consensus Check
+            
             if genome and exons[0]['chrom'] in genome:
                 chrom_seq = genome[exons[0]['chrom']]
                 try:
@@ -143,10 +143,8 @@ def analyze_gtf():
             import matplotlib.pyplot as plt
             
             plt.figure(figsize=(10, 6))
-            # Histogram
             plt.hist(intron_lengths, bins=50, color='skyblue', edgecolor='black', alpha=0.7)
             
-            # Mean and Median
             mean_val = statistics.mean(intron_lengths)
             median_val = statistics.median(intron_lengths)
             plt.axvline(mean_val, color='blue', linestyle='dashed', linewidth=1.5, label=f'Mean: {mean_val:.1f} bp')
@@ -164,7 +162,6 @@ def analyze_gtf():
         except ImportError:
             print("Matplotlib not installed")
 
-    # Print text report
     print("\n" + "="*40)
     print("Intron analysis report")
     print("="*40)
